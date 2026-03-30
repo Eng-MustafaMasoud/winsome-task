@@ -1,5 +1,5 @@
-import HotelResults from "@/features/hotel-results/components/hotel-results";
+import HotelResultsInfinite from "@/features/hotel-results/components/hotel-results-infinite";
 
-export default function HotelsPage() {
-  return <HotelResults />;
+export default function HotelPage() {
+  return <HotelResultsInfinite />;
 }

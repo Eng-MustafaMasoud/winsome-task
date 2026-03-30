@@ -1,6 +1,7 @@
 "use client";
 
 import { AutoComplete, Form, Input } from "antd";
+import { useState } from "react";
 import { useLocationSuggestions } from "../hooks/use-location-suggestions";
 
 type Props = {
@@ -9,29 +10,34 @@ type Props = {
 };
 
 export default function LocationAutocomplete({ value, onChange }: Props) {
-  const { data, isFetching } = useLocationSuggestions(value || "");
+  const [open, setOpen] = useState(false);
+  const searchValue = value || "";
+  const { data = [] } = useLocationSuggestions(searchValue);
 
   return (
     <Form.Item
       label="Location"
       name="location"
-      rules={[
-        { required: true, message: "Please select a location" },
-        { min: 2, message: "Type at least 2 characters" },
-      ]}
+      rules={[{ required: true, message: "Please select a location" }]}
       style={{ marginBottom: 0 }}
     >
       <AutoComplete
-        value={value}
+        value={searchValue}
+        options={data}
         onChange={onChange}
-        options={data || []}
-        placeholder="Where are you going?"
-        size="large"
-        allowClear
+        open={open}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setTimeout(() => setOpen(false), 150)}
         filterOption={false}
-        notFoundContent={isFetching ? "Loading..." : "No locations found"}
+        allowClear
+        style={{ width: "100%" }}
+        notFoundContent="No locations found"
       >
-        <Input size="large" style={{ height: 52, borderRadius: 14 }} />
+        <Input
+          placeholder="Where are you going?"
+          size="large"
+          style={{ height: 52, borderRadius: 14 }}
+        />
       </AutoComplete>
     </Form.Item>
   );

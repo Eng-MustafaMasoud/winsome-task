@@ -1,9 +1,7 @@
 "use client";
 
-import { Button, Typography } from "antd";
 import SearchForm from "@/features/hotel-search/components/search-form";
-
-const { Title, Paragraph } = Typography;
+import { Typography } from "antd";
 
 export default function HeroSection() {
   return (
@@ -34,7 +32,7 @@ export default function HeroSection() {
             marginBottom: 28,
           }}
         >
-          <Title
+          <Typography.Title
             level={1}
             style={{
               color: "#fff",
@@ -44,9 +42,9 @@ export default function HeroSection() {
             }}
           >
             Find your next perfect hotel stay
-          </Title>
+          </Typography.Title>
 
-          <Paragraph
+          <Typography.Paragraph
             style={{
               color: "rgba(255,255,255,0.88)",
               fontSize: 18,
@@ -56,7 +54,7 @@ export default function HeroSection() {
           >
             Search beautiful stays across Cairo, Giza, Sharm El Sheikh,
             Hurghada, Alexandria, and more.
-          </Paragraph>
+          </Typography.Paragraph>
         </div>
 
         <div

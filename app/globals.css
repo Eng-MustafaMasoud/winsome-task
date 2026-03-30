@@ -1,26 +1,339 @@
 @import "tailwindcss";
 @import "antd/dist/reset.css";
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --background-soft: #ffffff;
+  --background-elevated: rgba(255, 255, 255, 0.9);
+
+  --foreground: #0f172a;
+  --foreground-muted: #475569;
+  --foreground-soft: #64748b;
+
+  --border: rgba(15, 23, 42, 0.08);
+  --border-strong: rgba(15, 23, 42, 0.14);
+
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-soft: rgba(37, 99, 235, 0.1);
+
+  --shadow-sm: 0 2px 10px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 20px 60px rgba(15, 23, 42, 0.12);
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --container-width: 1200px;
+
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: var(--font-geist-mono);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-geist-sans, Arial, Helvetica, sans-serif);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0b1220;
+    --background-soft: #111827;
+    --background-elevated: rgba(17, 24, 39, 0.88);
+
+    --foreground: #404346;
+    --foreground-muted: #3b3d40;
+    --foreground-soft: #333941;
+
+    --border: rgba(148, 163, 184, 0.14);
+    --border-strong: rgba(41, 43, 46, 0.22);
+
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --primary-soft: rgba(59, 130, 246, 0.16);
+
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.28);
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.38);
   }
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  min-width: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
 body {
-  background: var(--background);
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+body {
+  background-color: #f8fafc;
+  background-image: radial-gradient(
+    circle at top left,
+    rgba(37, 99, 235, 0.025),
+    transparent 18%
+  );
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.92;
+}
+
+::selection {
+  background: var(--primary-soft);
+  color: var(--foreground);
+}
+
+.container {
+  width: min(100% - 32px, var(--container-width));
+  margin-inline: auto;
+}
+
+.surface {
+  background: var(--background-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.glass {
+  background: var(--background-elevated);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+.search-form-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.2fr auto;
+  gap: 16px;
+  align-items: end;
+}
+
+.search-submit-btn {
+  width: 100%;
+  height: 52px;
+  padding-inline: 28px;
+  border-radius: 14px;
+  font-weight: 600;
+}
+
+.hotel-filters-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.hotel-filter-card {
+  padding: 20px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.hotel-filter-price {
+  min-width: 0;
+}
+
+@media (max-width: 992px) {
+  .search-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hotel-filters-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hotel-filter-price {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .search-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hotel-filters-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hotel-filter-price {
+    grid-column: span 1;
+  }
+
+  .search-submit-btn {
+    width: 100%;
+  }
+}
+.section-padding {
+  padding-block: 72px;
+}
+
+.text-muted {
+  color: var(--foreground-muted);
+}
+
+.text-soft {
+  color: var(--foreground-soft);
+}
+
+.ant-btn {
+  border-radius: 14px;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.ant-btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+  border-color: var(--primary);
+}
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  background: linear-gradient(
+    135deg,
+    var(--primary-hover) 0%,
+    var(--primary) 100%
+  ) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+.ant-card {
+  border-radius: 20px;
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.ant-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+}
+
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-picker,
+.ant-select-selector,
+.ant-input-number,
+.ant-btn-lg {
+  border-radius: 14px !important;
+}
+
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-picker,
+.ant-select-selector,
+.ant-input-number {
+  min-height: 48px;
+  border-color: var(--border) !important;
+  box-shadow: none !important;
+}
+
+.ant-input:hover,
+.ant-input-affix-wrapper:hover,
+.ant-picker:hover,
+.ant-select-selector:hover,
+.ant-input-number:hover {
+  border-color: var(--primary) !important;
+}
+
+.ant-input:focus,
+.ant-input-focused,
+.ant-input-affix-wrapper-focused,
+.ant-picker-focused,
+.ant-select-focused .ant-select-selector,
+.ant-input-number-focused {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 4px var(--primary-soft) !important;
+}
+
+.ant-form-item-label > label {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.ant-typography {
+  color: inherit;
+}
+
+.ant-typography-secondary {
+  color: var(--foreground-muted) !important;
+}
+
+.ant-tag {
+  border-radius: 999px;
+  padding-inline: 10px;
+  font-weight: 500;
+}
+
+.ant-layout {
+  background: transparent !important;
+}
+
+@media (max-width: 1024px) {
+  .section-padding {
+    padding-block: 56px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: min(100% - 24px, var(--container-width));
+  }
+
+  .section-padding {
+    padding-block: 40px;
+  }
 }

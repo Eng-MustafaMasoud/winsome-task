@@ -2,8 +2,6 @@
 
 import { Typography } from "antd";
 
-const { Title, Paragraph, Text } = Typography;
-
 export default function AppFooter() {
   return (
     <footer
@@ -24,60 +22,60 @@ export default function AppFooter() {
         }}
       >
         <div>
-          <Title level={4} style={{ color: "#fff", marginTop: 0 }}>
+          <Typography.Title level={4} style={{ color: "#fff", marginTop: 0 }}>
             Hotel Search
-          </Title>
-          <Paragraph style={{ color: "rgba(255,255,255,0.75)" }}>
+          </Typography.Title>
+          <Typography.Paragraph style={{ color: "rgba(255,255,255,0.75)" }}>
             A modern hotel discovery platform focused on performance, scalable
             architecture, and smooth UX.
-          </Paragraph>
+          </Typography.Paragraph>
         </div>
 
         <div>
-          <Title level={5} style={{ color: "#fff" }}>
+          <Typography.Title level={5} style={{ color: "#fff" }}>
             Popular destinations
-          </Title>
-          <Paragraph
+          </Typography.Title>
+          <Typography.Paragraph
             style={{ color: "rgba(255,255,255,0.75)", marginBottom: 8 }}
           >
             Cairo
-          </Paragraph>
-          <Paragraph
+          </Typography.Paragraph>
+          <Typography.Paragraph
             style={{ color: "rgba(255,255,255,0.75)", marginBottom: 8 }}
           >
             Giza
-          </Paragraph>
-          <Paragraph
+          </Typography.Paragraph>
+          <Typography.Paragraph
             style={{ color: "rgba(255,255,255,0.75)", marginBottom: 8 }}
           >
             Sharm El Sheikh
-          </Paragraph>
-          <Paragraph
+          </Typography.Paragraph>
+          <Typography.Paragraph
             style={{ color: "rgba(255,255,255,0.75)", marginBottom: 0 }}
           >
             Hurghada
-          </Paragraph>
+          </Typography.Paragraph>
         </div>
 
         <div>
-          <Title level={5} style={{ color: "#fff" }}>
+          <Typography.Title level={5} style={{ color: "#fff" }}>
             Experience
-          </Title>
-          <Paragraph
+          </Typography.Title>
+          <Typography.Paragraph
             style={{ color: "rgba(255,255,255,0.75)", marginBottom: 8 }}
           >
             Fast hotel browsing
-          </Paragraph>
-          <Paragraph
+          </Typography.Paragraph>
+          <Typography.Paragraph
             style={{ color: "rgba(255,255,255,0.75)", marginBottom: 8 }}
           >
             Search by destination
-          </Paragraph>
-          <Paragraph
+          </Typography.Paragraph>
+          <Typography.Paragraph
             style={{ color: "rgba(255,255,255,0.75)", marginBottom: 0 }}
           >
             Clean booking-inspired UI
-          </Paragraph>
+          </Typography.Paragraph>
         </div>
       </div>
 
@@ -89,9 +87,9 @@ export default function AppFooter() {
           borderTop: "1px solid rgba(255,255,255,0.12)",
         }}
       >
-        <Text style={{ color: "rgba(255,255,255,0.65)" }}>
+        <Typography.Text style={{ color: "rgba(255,255,255,0.65)" }}>
           © 2026 Hotel Search Platform. All rights reserved.
-        </Text>
+        </Typography.Text>
       </div>
     </footer>
   );

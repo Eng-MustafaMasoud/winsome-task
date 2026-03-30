@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Form, message } from "antd";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import dayjs, { Dayjs } from "dayjs";
 import LocationAutocomplete from "./location-autocomplete";
 import StayDateRange from "./stay-date-range";
@@ -61,28 +61,20 @@ export default function SearchForm() {
           },
         }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "2fr 1.5fr 1.2fr auto",
-            gap: 16,
-          }}
-        >
+        <div className="search-form-grid">
           <LocationAutocomplete />
           <StayDateRange />
-          <GuestsSelector />
+
+          <Form.Item label="Guests" name="guests" style={{ marginBottom: 0 }}>
+            <GuestsSelector />
+          </Form.Item>
 
           <Form.Item label=" " style={{ marginBottom: 0 }}>
             <Button
               type="primary"
               htmlType="submit"
               size="large"
-              style={{
-                height: 52,
-                paddingInline: 28,
-                borderRadius: 14,
-                fontWeight: 600,
-              }}
+              className="search-submit-btn"
             >
               Search
             </Button>

@@ -4,7 +4,7 @@ import { Card, Col, Row, Skeleton } from "antd";
 
 export default function HotelResultsSkeleton() {
   return (
-    <div style={{ padding: 24 }}>
+    <div style={{ padding: 24, maxWidth: 1200, margin: "0 auto" }}>
       <Card
         style={{
           marginBottom: 24,

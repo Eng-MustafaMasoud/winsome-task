@@ -40,14 +40,14 @@ export default function HotelResultsHeader({
         }}
       >
         <div>
-          <Title level={2} style={{ marginTop: 0, marginBottom: 8 }}>
+          <Typography.Title level={2} style={{ marginTop: 0, marginBottom: 8 }}>
             {location ? `Hotels in ${location}` : "All Hotels"}
-          </Title>
+          </Typography.Title>
 
-          <Paragraph type="secondary" style={{ marginBottom: 12 }}>
+          <Typography.Paragraph type="secondary" style={{ marginBottom: 12 }}>
             Explore available stays based on your selected destination and trip
             details.
-          </Paragraph>
+          </Typography.Paragraph>
 
           <Space wrap size={[8, 8]}>
             {location ? <Tag color="blue">{location}</Tag> : null}

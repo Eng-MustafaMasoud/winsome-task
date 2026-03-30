@@ -1,18 +1,22 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Alert, Empty, Flex, Typography } from "antd";
 import { useSearchParams } from "next/navigation";
 import HotelList from "./hotel-list";
+import HotelFilters from "./hotel-filters";
 import { useHotels } from "../hooks/use-hotels";
-import HotelResultsHeader from "./hotel-results-header";
 import HotelResultsSkeleton from "./hotel-results-skeleton";
-
-const { Paragraph } = Typography;
+import HotelResultsHeader from "./hotel-results-header";
 
 export default function HotelResults() {
-  const { data, isLoading, isError, error, refetch } = useHotels();
+  const { data, isLoading, isError, error } = useHotels();
   const searchParams = useSearchParams();
+  console.log(data);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
+  const [minRating, setMinRating] = useState<number | null>(null);
+  const [maxDistance, setMaxDistance] = useState<number | null>(null);
+  const [sortBy, setSortBy] = useState("best-match");
 
   const location = searchParams.get("location") || "";
   const checkIn = searchParams.get("checkIn") || "";
@@ -23,12 +27,51 @@ export default function HotelResults() {
 
   const filteredHotels = useMemo(() => {
     if (!data) return [];
-    if (!location) return data;
 
-    return data.filter((hotel) =>
-      hotel.location.toLowerCase().includes(location.toLowerCase()),
+    let result = [...data];
+
+    if (location) {
+      result = result.filter((hotel) =>
+        hotel.location.toLowerCase().includes(location.toLowerCase()),
+      );
+    }
+
+    result = result.filter(
+      (hotel) => hotel.price >= priceRange[0] && hotel.price <= priceRange[1],
     );
-  }, [data, location]);
+
+    if (minRating !== null) {
+      result = result.filter((hotel) => hotel.rating >= minRating);
+    }
+
+    if (maxDistance !== null) {
+      result = result.filter((hotel) => {
+        if (typeof hotel.distance !== "number") return true;
+        return hotel.distance <= maxDistance;
+      });
+    }
+
+    if (sortBy === "price-asc") {
+      result.sort((a, b) => a.price - b.price);
+    } else if (sortBy === "rating-desc") {
+      result.sort((a, b) => b.rating - a.rating);
+    } else {
+      result.sort((a, b) => {
+        const scoreA =
+          a.rating * 2 -
+          a.price / 100 -
+          (typeof a.distance === "number" ? a.distance : 0);
+        const scoreB =
+          b.rating * 2 -
+          b.price / 100 -
+          (typeof b.distance === "number" ? b.distance : 0);
+
+        return scoreB - scoreA;
+      });
+    }
+
+    return result;
+  }, [data, location, priceRange, minRating, maxDistance, sortBy]);
 
   if (isLoading) {
     return <HotelResultsSkeleton />;
@@ -53,8 +96,6 @@ export default function HotelResults() {
     <div
       style={{
         minHeight: "100vh",
-        background:
-          "linear-gradient(180deg, #eef4ff 0%, #f8fbff 32%, #ffffff 100%)",
         padding: "32px 24px 56px",
       }}
     >
@@ -68,15 +109,20 @@ export default function HotelResults() {
           rooms={rooms}
         />
 
-        {location ? (
-          <Paragraph type="secondary" style={{ marginBottom: 24 }}>
-            Showing hotel results for <strong>{location}</strong>.
-          </Paragraph>
-        ) : null}
+        <HotelFilters
+          priceRange={priceRange}
+          onPriceRangeChange={setPriceRange}
+          minRating={minRating}
+          onMinRatingChange={setMinRating}
+          maxDistance={maxDistance}
+          onMaxDistanceChange={setMaxDistance}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+        />
 
         {!filteredHotels.length ? (
           <Flex justify="center" align="center" style={{ minHeight: 320 }}>
-            <Empty description="No hotels found for your search" />
+            <Empty description="No hotels found for your filters" />
           </Flex>
         ) : (
           <HotelList hotels={filteredHotels} />

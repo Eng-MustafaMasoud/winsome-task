@@ -13,9 +13,10 @@ export default function Error({ error, reset }: Props) {
       <Alert
         type="error"
         showIcon
-        message="Failed to load hotel results"
+        title="Failed to load hotel results"
         description={error?.message || "Please try again."}
       />
+
       <Button type="primary" onClick={reset} style={{ marginTop: 16 }}>
         Try Again
       </Button>

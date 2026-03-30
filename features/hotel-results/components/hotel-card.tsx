@@ -1,67 +1,102 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Card, Rate, Typography } from "antd";
 import type { Hotel } from "../types/hotel.types";
 
-const { Title, Text } = Typography;
-
-type HotelCardProps = {
+type Props = {
   hotel: Hotel;
 };
 
-export default function HotelCard({ hotel }: HotelCardProps) {
+export default function HotelCard({ hotel }: Props) {
   return (
-    <Card
-      hoverable
-      style={{
-        borderRadius: 20,
-        overflow: "hidden",
-        boxShadow: "0 10px 28px rgba(15,23,42,0.08)",
-      }}
-      cover={
+    <Link href={`/hotel/${hotel.id}`} style={{ display: "block" }}>
+      <Card
+        hoverable
+        style={{
+          borderRadius: 24,
+          overflow: "hidden",
+          border: "1px solid rgba(15,23,42,0.06)",
+          boxShadow: "0 10px 30px rgba(15,23,42,0.06)",
+          transition: "all 0.3s ease",
+        }}
+        styles={{
+          body: { padding: 16 },
+        }}
+        className="hotel-card"
+        cover={
+          <div style={{ position: "relative", height: 220 }}>
+            <Image
+              src={hotel.image}
+              alt={hotel.name}
+              fill
+              unoptimized
+              style={{ objectFit: "cover" }}
+            />
+
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background:
+                  "linear-gradient(to top, rgba(0,0,0,0.4), transparent 60%)",
+              }}
+            />
+
+            <div
+              style={{
+                position: "absolute",
+                bottom: 12,
+                left: 12,
+                background: "rgba(0,0,0,0.72)",
+                color: "#fff",
+                padding: "6px 12px",
+                borderRadius: 999,
+                fontWeight: 600,
+                fontSize: 14,
+              }}
+            >
+              ${hotel.price} / night
+            </div>
+          </div>
+        }
+      >
+        <Typography.Title level={5} style={{ margin: 0 }}>
+          {hotel.name}
+        </Typography.Title>
+
+        <Typography.Text
+          type="secondary"
+          style={{ display: "block", marginTop: 4 }}
+        >
+          {hotel.location}
+        </Typography.Text>
+
         <div
           style={{
-            position: "relative",
-            width: "100%",
-            height: 220,
+            marginTop: 10,
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
           }}
         >
-          <Image
-            src={hotel.image}
-            alt={hotel.name}
-            fill
-            sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, (max-width: 1200px) 33vw, 25vw"
-            style={{ objectFit: "cover" }}
-            priority={false}
+          <Rate
+            disabled
+            allowHalf
+            value={hotel.rating}
+            style={{ fontSize: 14 }}
           />
+          <Typography.Text strong>{hotel.rating}</Typography.Text>
         </div>
-      }
-      styles={{
-        body: {
-          padding: 18,
-        },
-      }}
-    >
-      <Title level={4} style={{ marginBottom: 8, marginTop: 0 }}>
-        {hotel.name}
-      </Title>
+      </Card>
 
-      <Text type="secondary">{hotel.location}</Text>
-
-      <div style={{ marginTop: 12 }}>
-        <Rate disabled allowHalf value={hotel.rating} />
-        <div style={{ marginTop: 4 }}>
-          <Text>{hotel.rating} / 5</Text>
-        </div>
-      </div>
-
-      <div style={{ marginTop: 16 }}>
-        <Title level={5} style={{ margin: 0 }}>
-          ${hotel.price}
-        </Title>
-        <Text type="secondary">per night</Text>
-      </div>
-    </Card>
+      <style jsx>{`
+        .hotel-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+        }
+      `}</style>
+    </Link>
   );
 }
