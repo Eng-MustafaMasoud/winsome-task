@@ -8,8 +8,8 @@ Senior Frontend assessment implementation using Next.js, React, Ant Design, and 
 npm install
 npm run dev
 ```
-
 App: `http://localhost:3000`  
+i use json server for mock api
 Mock API: `http://localhost:3000/api/hotels`
 
 ## What Is Implemented
