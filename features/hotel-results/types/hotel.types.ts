@@ -5,5 +5,6 @@ export type Hotel = {
   rating: number;
   location: string;
   image: string;
-  distance?: number;
 };
+
+export type CreateHotelPayload = Omit<Hotel, "id">;
