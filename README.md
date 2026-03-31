@@ -1,5 +1,7 @@
 # Hotel Search Platform
-the prod url:https://hotelfinder-winsome.netlify.app/
+the prod url: https://hotelfinder-winsome.netlify.app/
+
+
 Senior Frontend assessment implementation using Next.js, React, Ant Design, and React Query.
 
 ## Run Locally
