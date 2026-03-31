@@ -1,7 +1,8 @@
 import type { CreateHotelPayload, Hotel } from "../types/hotel.types";
+import { MOCK_API_BASE_URL } from "@/shared/constants/api";
 
 export async function createHotel(payload: CreateHotelPayload): Promise<Hotel> {
-  const response = await fetch("http://localhost:4000/hotels", {
+  const response = await fetch(MOCK_API_BASE_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
