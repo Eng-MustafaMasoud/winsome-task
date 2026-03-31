@@ -1,5 +1,5 @@
 # Hotel Search Platform
-
+the prod url:https://hotelfinder-winsome.netlify.app/
 Senior Frontend assessment implementation using Next.js, React, Ant Design, and React Query.
 
 ## Run Locally
@@ -8,9 +8,9 @@ Senior Frontend assessment implementation using Next.js, React, Ant Design, and 
 npm install
 npm run dev
 ```
-
 App: `http://localhost:3000`  
-Mock API: `http://localhost:3000/api/hotels`
+i use json server for mock api
+Mock API: `http://localhost:4000/hotels`
 
 ## What Is Implemented
 
