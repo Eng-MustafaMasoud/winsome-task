@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { Alert, Empty, Flex, Typography } from "antd";
 import { useSearchParams } from "next/navigation";
 import HotelList from "./hotel-list";
-import HotelFilters from "./hotel-filters";
+import HotelFilters, { RatingFilter, SortOption } from "./hotel-filters";
 import { useHotels } from "../hooks/use-hotels";
 import HotelResultsSkeleton from "./hotel-results-skeleton";
 import HotelResultsHeader from "./hotel-results-header";
@@ -12,11 +12,10 @@ import HotelResultsHeader from "./hotel-results-header";
 export default function HotelResults() {
   const { data, isLoading, isError, error } = useHotels();
   const searchParams = useSearchParams();
-  console.log(data);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
-  const [minRating, setMinRating] = useState<number | null>(null);
+  const [minRating, setMinRating] = useState<RatingFilter>("any");
   const [maxDistance, setMaxDistance] = useState<number | null>(null);
-  const [sortBy, setSortBy] = useState("best-match");
+  const [sortBy, setSortBy] = useState<SortOption>("best-match");
 
   const location = searchParams.get("location") || "";
   const checkIn = searchParams.get("checkIn") || "";
@@ -40,7 +39,7 @@ export default function HotelResults() {
       (hotel) => hotel.price >= priceRange[0] && hotel.price <= priceRange[1],
     );
 
-    if (minRating !== null) {
+    if (minRating !== "any") {
       result = result.filter((hotel) => hotel.rating >= minRating);
     }
 

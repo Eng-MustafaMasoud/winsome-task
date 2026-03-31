@@ -132,9 +132,11 @@ export default function HotelResultsInfinite() {
       result = result.filter((hotel) => hotel.rating >= deferredMinRating);
     }
 
-    // Assumes hotel.distance exists and is a number in km
     if (deferredMaxDistance !== null) {
-      result = result.filter((hotel) => hotel.distance <= deferredMaxDistance);
+      result = result.filter(
+        (hotel) =>
+          (hotel.distance ?? Number.POSITIVE_INFINITY) <= deferredMaxDistance,
+      );
     }
 
     const sorted = [...result];
@@ -147,7 +149,11 @@ export default function HotelResultsInfinite() {
         sorted.sort((a, b) => b.rating - a.rating);
         break;
       case "distance-asc":
-        sorted.sort((a, b) => a.distance - b.distance);
+        sorted.sort(
+          (a, b) =>
+            (a.distance ?? Number.POSITIVE_INFINITY) -
+            (b.distance ?? Number.POSITIVE_INFINITY),
+        );
         break;
       default:
         sorted.sort((a, b) => {
