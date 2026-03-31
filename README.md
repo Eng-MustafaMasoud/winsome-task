@@ -10,7 +10,7 @@ npm run dev
 ```
 App: `http://localhost:3000`  
 i use json server for mock api
-Mock API: `http://localhost:3000/api/hotels`
+Mock API: `http://localhost:4000/hotels`
 
 ## What Is Implemented
 
