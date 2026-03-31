@@ -15,7 +15,6 @@ const sections = [
 
 export default function SuggestedHotelsSections() {
   const { data: hotels = [], isLoading } = useHotels();
-  console.log(hotels);
   return (
     <section style={{ padding: "48px 24px 24px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
