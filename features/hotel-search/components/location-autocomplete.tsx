@@ -16,10 +16,12 @@ export default function LocationAutocomplete({ value, onChange }: Props) {
 
   return (
     <Form.Item
-      label="Location"
+      label={
+        <span className="text-sm font-medium text-slate-700">Location</span>
+      }
       name="location"
       rules={[{ required: true, message: "Please select a location" }]}
-      style={{ marginBottom: 0 }}
+      className="!mb-0"
     >
       <AutoComplete
         value={searchValue}
@@ -27,16 +29,16 @@ export default function LocationAutocomplete({ value, onChange }: Props) {
         onChange={onChange}
         open={open}
         onFocus={() => setOpen(true)}
-        onBlur={() => setTimeout(() => setOpen(false), 150)}
+        onBlur={() => setTimeout(() => setOpen(false), 120)}
         filterOption={false}
         allowClear
-        style={{ width: "100%" }}
+        className="w-full"
         notFoundContent="No locations found"
       >
         <Input
           placeholder="Where are you going?"
           size="large"
-          style={{ height: 52, borderRadius: 14 }}
+          className="!h-[52px] !rounded-2xl !border-slate-200 !shadow-none transition focus:!border-blue-500"
         />
       </AutoComplete>
     </Form.Item>

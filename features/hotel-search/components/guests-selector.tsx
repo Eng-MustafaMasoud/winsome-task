@@ -17,7 +17,6 @@ type Props = {
 
 export default function GuestsSelector({ value, onChange }: Props) {
   const committedGuests = value || DEFAULT_GUESTS;
-
   const [open, setOpen] = useState(false);
   const [draftGuests, setDraftGuests] = useState<GuestsState>(committedGuests);
 
@@ -47,67 +46,39 @@ export default function GuestsSelector({ value, onChange }: Props) {
   };
 
   const content = (
-    <div style={{ width: 280 }}>
-      <Space orientation="vertical" size={16} style={{ width: "100%" }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 12,
-          }}
-        >
+    <div className="w-[280px]">
+      <Space orientation="vertical" size={16} className="w-full">
+        <div className="flex items-center justify-between gap-3">
           <Typography.Text>Adults</Typography.Text>
           <InputNumber
             min={1}
             max={20}
             value={draftGuests.adults}
-            onChange={(val) => updateDraft("adults", Number(val ?? 1))}
+            onChange={(value) => updateDraft("adults", Number(value ?? 1))}
           />
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 12,
-          }}
-        >
+        <div className="flex items-center justify-between gap-3">
           <Typography.Text>Children</Typography.Text>
           <InputNumber
             min={0}
             max={10}
             value={draftGuests.children}
-            onChange={(val) => updateDraft("children", Number(val ?? 0))}
+            onChange={(value) => updateDraft("children", Number(value ?? 0))}
           />
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 12,
-          }}
-        >
+        <div className="flex items-center justify-between gap-3">
           <Typography.Text>Rooms</Typography.Text>
           <InputNumber
             min={1}
             max={10}
             value={draftGuests.rooms}
-            onChange={(val) => updateDraft("rooms", Number(val ?? 1))}
+            onChange={(value) => updateDraft("rooms", Number(value ?? 1))}
           />
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            gap: 8,
-            marginTop: 8,
-          }}
-        >
+        <div className="flex justify-end gap-2 pt-1">
           <Button onClick={handleCancel}>Cancel</Button>
           <Button type="primary" onClick={handleApply}>
             Apply
@@ -132,13 +103,7 @@ export default function GuestsSelector({ value, onChange }: Props) {
     >
       <Button
         size="large"
-        style={{
-          width: "100%",
-          height: 52,
-          borderRadius: 14,
-          textAlign: "left",
-          justifyContent: "flex-start",
-        }}
+        className="!h-[52px] !w-full !justify-start !rounded-2xl !border-slate-200 !text-left !shadow-none transition hover:!border-blue-500"
       >
         {summary}
       </Button>

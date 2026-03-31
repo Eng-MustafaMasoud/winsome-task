@@ -16,13 +16,13 @@ const STATIC_LOCATIONS: LocationOption[] = [
 export async function getLocationSuggestions(
   query: string,
 ): Promise<LocationOption[]> {
-  const trimmed = query.trim().toLowerCase();
+  const normalized = query.trim().toLowerCase();
 
-  if (!trimmed) {
+  if (!normalized) {
     return STATIC_LOCATIONS;
   }
 
   return STATIC_LOCATIONS.filter((item) =>
-    item.label.toLowerCase().includes(trimmed),
+    item.label.toLowerCase().includes(normalized),
   );
 }
