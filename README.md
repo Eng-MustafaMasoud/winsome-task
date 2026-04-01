@@ -104,6 +104,7 @@ React Query + local state is fast to build, simple to reason about, and enough f
 - Memoize computed lists and keep stable props.
 - Debounce filter changes and move heavy operations server-side.
 - Optimize image sizes/formats and lazy loading.
+- use less of clien side component and use server side component to less js usage.
 
 ## UX Decision: Users Drop Before Booking
 
